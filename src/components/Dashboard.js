@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useEffect } from "react";
 import TaskList from "./TaskList";
 import TaskForm from "./TaskForm";
 
@@ -8,6 +9,18 @@ function Dashboard() {
   const [searchText, setSearchText] = useState("");
   const [priorityFilter, setPriorityFilter] = useState("");
   const [completionFilter, setCompletionFilter] = useState("");
+
+  useEffect(() => {
+    const savedTasks = JSON.parse(localStorage.getItem('tasks')) || [];
+    setTasks(savedTasks);
+  }, []);
+
+  // Save tasks to localStorage whenever tasks change
+  useEffect(() => {
+    if (tasks.length > 0) {
+      localStorage.setItem('tasks', JSON.stringify(tasks));
+    }
+  }, [tasks]);
 
   // Add or update a task
   const addOrUpdateTask = (task) => {
