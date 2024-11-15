@@ -15,15 +15,14 @@ function TaskForm({ onSubmit, editableTask }) {
     if (editableTask) {
       setTitle(editableTask.title);
       setDescription(editableTask.description);
-      setDueDate(new Date(editableTask.dueDate)); // Ensure it is a Date object
-      setTime(new Date(editableTask.dueDate)); // Extract time from the due date
+      setDueDate(new Date(editableTask.dueDate));
+      setTime(new Date(editableTask.dueDate));
       setPriority(editableTask.priority);
     }
-  }, [editableTask]); // Re-run when editableTask changes
+  }, [editableTask]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Store the date and time as ISO string for consistency
     const task = {
       title,
       description,
@@ -43,9 +42,9 @@ function TaskForm({ onSubmit, editableTask }) {
   return (
     <form
       onSubmit={handleSubmit}
-      className="bg-gray-800 p-6 rounded-lg shadow-md"
+      className="bg-gray-800 p-4 md:p-6 lg:p-8 rounded-lg shadow-md w-full max-w-lg mx-auto"
     >
-      <h2 className="text-xl font-semibold text-white mb-4">
+      <h2 className="text-lg md:text-xl lg:text-2xl font-semibold text-white mb-4">
         {editableTask ? "Edit Task" : "Add Task"}
       </h2>
 
@@ -55,7 +54,7 @@ function TaskForm({ onSubmit, editableTask }) {
         value={title}
         onChange={(e) => setTitle(e.target.value)}
         placeholder="Task Title"
-        className="w-full p-2 mb-4 text-white bg-gray-700 rounded-lg"
+        className="w-full p-2 md:p-3 mb-4 text-white bg-gray-700 rounded-lg"
         required
       />
 
@@ -64,24 +63,22 @@ function TaskForm({ onSubmit, editableTask }) {
         value={description}
         onChange={(e) => setDescription(e.target.value)}
         placeholder="Task Description"
-        className="w-full p-2 mb-4 text-white bg-gray-700 rounded-lg"
+        className="w-full p-2 md:p-3 mb-4 text-white bg-gray-700 rounded-lg"
         rows="4"
       ></textarea>
 
-      {/* Due Date and Time Picker side by side */}
-      <div className="flex justify-between gap-4 mb-4">
-        {/* Calendar Icon and Date Picker */}
-        <div className="flex items-center gap-2">
+      {/* Due Date and Time Picker */}
+      <div className="flex flex-col md:flex-row md:gap-4 mb-4">
+        <div className="flex items-center gap-2 mb-4 md:mb-0">
           <FaCalendarAlt className="text-white" size={20} />
           <DatePicker
             selected={dueDate}
             onChange={(date) => setDueDate(date)}
             dateFormat="MMMM d, yyyy"
-            className="p-2 bg-gray-700 text-white rounded-lg"
+            className="p-2 md:p-3 bg-gray-700 text-white rounded-lg"
           />
         </div>
 
-        {/* Time Icon and Time Picker */}
         <div className="flex items-center gap-2">
           <FaClock className="text-white" size={20} />
           <input
@@ -91,13 +88,13 @@ function TaskForm({ onSubmit, editableTask }) {
               .toString()
               .padStart(2, "0")}`}
             onChange={(e) => {
-              const newTime = new Date(dueDate); // Set same day as dueDate
+              const newTime = new Date(dueDate);
               const [hours, minutes] = e.target.value.split(":");
               newTime.setHours(hours);
               newTime.setMinutes(minutes);
               setTime(newTime);
             }}
-            className="p-2 bg-gray-700 text-white rounded-lg"
+            className="p-2 md:p-3 bg-gray-700 text-white rounded-lg"
           />
         </div>
       </div>
@@ -106,7 +103,7 @@ function TaskForm({ onSubmit, editableTask }) {
       <select
         value={priority}
         onChange={(e) => setPriority(e.target.value)}
-        className="w-full p-2 bg-gray-700 text-white rounded-lg mb-4"
+        className="w-full p-2 md:p-3 bg-gray-700 text-white rounded-lg mb-4"
       >
         <option value="High">High</option>
         <option value="Medium">Medium</option>
@@ -116,7 +113,7 @@ function TaskForm({ onSubmit, editableTask }) {
       {/* Submit Button */}
       <button
         type="submit"
-        className="w-full p-2 bg-blue-600 text-white rounded-lg"
+        className="w-full p-2 md:p-3 bg-blue-600 text-white rounded-lg"
       >
         {editableTask ? "Update Task" : "Add Task"}
       </button>
