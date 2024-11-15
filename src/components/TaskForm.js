@@ -68,7 +68,7 @@ function TaskForm({ onSubmit, editableTask }) {
       ></textarea>
 
       {/* Due Date and Time Picker */}
-      <div className="flex flex-col md:flex-row md:gap-4 mb-4">
+      <div className="flex flex-col md:flex-row md:gap-4 mb-4 justify-between">
         <div className="flex items-center gap-2 mb-4 md:mb-0">
           <FaCalendarAlt className="text-white" size={20} />
           <DatePicker
